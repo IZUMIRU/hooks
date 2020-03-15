@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import UseState from 'UseState';
+import UseEffect from 'UseEffect';
+import UseMemo from 'UseMemo';
+import UseCallback from 'UseCallback';
 
-function App() {
+const App: React.FC = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <h1><a href="https://ja.reactjs.org/docs/hooks-intro.html">React Hooks</a></h1>
+      <UseState />
+      <hr />
+      <UseEffect />
+      <hr />
+      <UseMemo />
+      <hr />
+      <UseCallback />
+    </React.Fragment>
   );
 }
 
