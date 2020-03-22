@@ -1,17 +1,31 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 
 const UseMemo: React.FC = () => {
-  const [fastCount, setFastCount] = useState(0);
-  const [slowCount, setSlowCount] = useState(0);
+  const [fastCount, setFastCount] = useState<number>(0);
+  const [slowCount, setSlowCount] = useState<number>(0);
 
-  const computeSlowCount = (slowCount: number) => {
+  // const newSlowCount = computeSlowCount(slowCount);
+
+  // const newSlowCount = useMemo<number>(
+  //   () => {
+  //     const computeSlowCount = (slowCount: number) => {
+  //       let i = 0;
+  //       while (i < 1000000000) i++;
+  //       return slowCount;
+  //     };
+  //     return computeSlowCount(slowCount)
+  //   }, [slowCount]
+  // );
+
+  const computeSlowCount = useCallback<(slowCount: number) => number>(slowCount => {
     let i = 0;
     while (i < 1000000000) i++;
     return slowCount;
-  };
+  }, []);
 
-  const newSlowCount = useMemo(() => computeSlowCount(slowCount), [slowCount]);
-  // const newSlowCount = computeSlowCount(slowCount);
+  const newSlowCount = useMemo<number>(
+    () => computeSlowCount(slowCount), [slowCount, computeSlowCount]
+  );
 
   return (
     <React.Fragment>
@@ -31,7 +45,6 @@ const UseMemo: React.FC = () => {
       <button onClick={() => setSlowCount(0)}>
         Reset
       </button>
-
       <p>fast（useMemo）</p>
       <p>{fastCount}</p>
       <button onClick={() => setFastCount(fastCount + 1)}>
